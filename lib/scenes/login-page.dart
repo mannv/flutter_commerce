@@ -55,6 +55,7 @@ class LoginPage extends StatelessWidget with FormStyle {
                       attribute: 'password',
                       maxLines: 1,
                       autocorrect: false,
+                      obscureText: true,
                       keyboardType: TextInputType.visiblePassword,
                       decoration: textFieldStyle('Password'),
                       validators: [
