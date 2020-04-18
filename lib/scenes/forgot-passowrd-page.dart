@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_commerce/mixins/form-style.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-class ForgotPassword extends StatelessWidget {
+class ForgotPassword extends StatelessWidget with FormStyle {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
@@ -38,17 +39,7 @@ class ForgotPassword extends StatelessWidget {
                     maxLines: 1,
                     autocorrect: false,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                        labelText: 'Email address',
-                        errorBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 1.0, color: borderColor)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 1.0, color: borderColor)),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                width: 1.0, color: Colors.grey[350]))),
+                    decoration: textFieldStyle('Email address'),
                     validators: [
                       FormBuilderValidators.required(
                           errorText: 'Please input your email address.'),

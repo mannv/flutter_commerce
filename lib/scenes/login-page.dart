@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_commerce/mixins/form-style.dart';
 import 'package:flutter_commerce/scenes/forgot-passowrd-page.dart';
 import 'package:flutter_commerce/widgets/login-with-social-network.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatelessWidget with FormStyle {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
@@ -40,17 +41,7 @@ class LoginPage extends StatelessWidget {
                     maxLines: 1,
                     autocorrect: false,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                        labelText: 'Email address',
-                        errorBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 1.0, color: borderColor)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 1.0, color: borderColor)),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                width: 1.0, color: Colors.grey[350]))),
+                    decoration: textFieldStyle('Email address'),
                     validators: [
                       FormBuilderValidators.required(
                           errorText: 'Please input your email address.'),
@@ -65,17 +56,7 @@ class LoginPage extends StatelessWidget {
                       maxLines: 1,
                       autocorrect: false,
                       keyboardType: TextInputType.visiblePassword,
-                      decoration: InputDecoration(
-                          labelText: 'Password',
-                          errorBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(width: 1.0, color: borderColor)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(width: 1.0, color: borderColor)),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1.0, color: Colors.grey[350]))),
+                      decoration: textFieldStyle('Password'),
                       validators: [
                         FormBuilderValidators.required(
                             errorText: 'Please input password.'),
