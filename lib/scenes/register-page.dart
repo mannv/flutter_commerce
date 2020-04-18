@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter_commerce/scenes/home-page.dart';
 import 'package:flutter_commerce/scenes/login-page.dart';
 import 'package:flutter_commerce/widgets/login-with-social-network.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class RegisterPage extends StatelessWidget {
+  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+
   @override
   Widget build(BuildContext context) {
     _gotoLoginPage() {
@@ -13,22 +15,98 @@ class RegisterPage extends StatelessWidget {
     }
 
     _registerAction() {
-      print('register action');
+      if (_fbKey.currentState.saveAndValidate()) {
+        print('Validate thanh cong');
+      } else {
+        print('Nhap lieu khong dung');
+      }
     }
 
     Widget _buildForm() {
+      final borderColor = Theme.of(context).primaryColor;
+
       return Container(
-        height: 300.0,
         margin: EdgeInsets.only(top: 50.0),
-        decoration: BoxDecoration(color: Colors.blueAccent),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Name'),
-            Text('Email'),
-            Text('Password'),
+            FormBuilder(
+              key: _fbKey,
+              autovalidate: true,
+              child: Column(
+                children: <Widget>[
+                  FormBuilderTextField(
+                    attribute: 'name',
+                    maxLines: 1,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                        labelText: 'Your name',
+                        errorBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 1.0, color: borderColor)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 1.0, color: borderColor)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 1.0, color: Colors.grey[350]))),
+                    validators: [
+                      FormBuilderValidators.required(
+                          errorText: 'Please input your name.'),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
+                    child: FormBuilderTextField(
+                      attribute: 'email',
+                      maxLines: 1,
+                      autocorrect: false,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                          labelText: 'Email address',
+                          errorBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(width: 1.0, color: borderColor)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(width: 1.0, color: borderColor)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 1.0, color: Colors.grey[350]))),
+                      validators: [
+                        FormBuilderValidators.required(
+                            errorText: 'Please input your email address.'),
+                        FormBuilderValidators.email(
+                            errorText: 'Dia chi email khong dung dinh dang'),
+                      ],
+                    ),
+                  ),
+                  FormBuilderTextField(
+                    attribute: 'password',
+                    maxLines: 1,
+                    autocorrect: false,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                        labelText: 'Password',
+                        errorBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 1.0, color: borderColor)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 1.0, color: borderColor)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 1.0, color: Colors.grey[350]))),
+                    validators: [
+                      FormBuilderValidators.required(
+                          errorText: 'Please input password.'),
+                    ],
+                  )
+                ],
+              ),
+            ),
             Container(
-              margin: EdgeInsets.only(bottom: 28.0),
+              margin: EdgeInsets.only(bottom: 28.0, top: 16.0),
               child: GestureDetector(
                   onTap: _gotoLoginPage,
                   child: Row(
@@ -39,20 +117,19 @@ class RegisterPage extends StatelessWidget {
                     ],
                   )),
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(25.0)),
-              height: 48.0,
-              child: GestureDetector(
-                onTap: _registerAction,
-                child: Center(
-                  child: Text(
-                    'SIGN UP',
-                    style: Theme.of(context).textTheme.button,
-                  ),
-                ),
-              ),
+            GestureDetector(
+              onTap: _registerAction,
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(25.0)),
+                  height: 48.0,
+                  child: Center(
+                    child: Text(
+                      'SIGN UP',
+                      style: Theme.of(context).textTheme.button,
+                    ),
+                  )),
             )
           ],
         ),
@@ -60,6 +137,7 @@ class RegisterPage extends StatelessWidget {
     }
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(16.0),
