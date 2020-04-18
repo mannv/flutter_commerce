@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_commerce/scenes/login-page.dart';
+import 'package:flutter_commerce/scenes/register-page.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
     _gotoLoginPage() {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
     }
 
     return Container(
@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
         child: GestureDetector(
           onTap: _gotoLoginPage,
           child:
-              Text('Login Page', style: Theme.of(context).textTheme.headline),
+              Text('Register Page', style: Theme.of(context).textTheme.headline),
         ),
       ),
     );

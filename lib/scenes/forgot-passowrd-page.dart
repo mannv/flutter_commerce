@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter_commerce/scenes/forgot-passowrd-page.dart';
+import 'package:flutter_commerce/scenes/home-page.dart';
 import 'package:flutter_commerce/widgets/login-with-social-network.dart';
 
-class LoginPage extends StatelessWidget {
+class ForgotPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    _gotoForgotPassword() {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
-    }
-
-    _loginAction() {
-      print('login action');
+    _forgotPasswordAction() {
+      print('forgot password action');
     }
 
     Widget _buildForm() {
@@ -26,28 +22,15 @@ class LoginPage extends StatelessWidget {
             Text('Email'),
             Text('Password'),
             Container(
-              margin: EdgeInsets.only(bottom: 28.0),
-              child: GestureDetector(
-                onTap: _gotoForgotPassword,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text('Forgot your password?'),
-                    Image.asset('images/icons/round_arrow_right.png')
-                  ],
-                ),
-              ),
-            ),
-            Container(
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(25.0)),
               height: 48.0,
               child: GestureDetector(
-                onTap: _loginAction,
+                onTap: _forgotPasswordAction,
                 child: Center(
                   child: Text(
-                    'LOGIN',
+                    'SEND',
                     style: Theme.of(context).textTheme.button,
                   ),
                 ),
@@ -76,12 +59,12 @@ class LoginPage extends StatelessWidget {
                       child: Icon(Icons.arrow_back_ios),
                     ),
                     SizedBox(height: 35.0),
-                    Text('Login', style: Theme.of(context).textTheme.headline),
+                    Text('Forgot password',
+                        style: Theme.of(context).textTheme.headline),
                     _buildForm()
                   ],
                 ),
-              ),
-              LoginWithSocialNetwork(),
+              )
             ],
           ),
         ),
