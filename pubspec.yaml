@@ -23,6 +23,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  flutter_form_builder: ^3.8.3
 
 dev_dependencies:
   flutter_test:
@@ -41,8 +42,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
+  assets:
+    - images/icons/
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -56,6 +57,27 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Comfortaa-Light
+      fonts:
+        - asset: fonts/Comfortaa-Light.ttf
+          weight: 300
+    - family: Comfortaa-Regular.ttf
+      fonts:
+        - asset: fonts/Comfortaa-Regular.ttf
+          weight: 400
+    - family: Comfortaa-Medium
+      fonts:
+        - asset: fonts/Comfortaa-Medium.ttf
+          weight: 500
+    - family: Comfortaa-SemiBold
+      fonts:
+        - asset: fonts/Comfortaa-SemiBold.ttf
+          weight: 600
+    - family: Comfortaa-Bold
+      fonts:
+        - asset: fonts/Comfortaa-Bold.ttf
+          weight: 700
   # fonts:
   #   - family: Schyler
   #     fonts:
@@ -68,5 +90,5 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+# For details regarding fonts from package dependencies,
+# see https://flutter.dev/custom-fonts/#from-packages
