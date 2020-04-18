@@ -62,7 +62,7 @@ flutter:
       fonts:
         - asset: fonts/Comfortaa-Light.ttf
           weight: 300
-    - family: Comfortaa-Regular.ttf
+    - family: Comfortaa-Regular
       fonts:
         - asset: fonts/Comfortaa-Regular.ttf
           weight: 400
