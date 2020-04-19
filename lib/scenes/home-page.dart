@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
       String iconName = index == _currentIndexTab
           ? '${icon}_activated.png'
           : '${icon}_inactive.png';
-      print('iconName: ${iconName}');
 
       TextStyle textActivated =
           TextStyle(fontSize: 12.0, color: Color(0xFFDB3022));
@@ -43,17 +42,22 @@ class _HomePageState extends State<HomePage> {
             _currentIndexTab = index;
           });
         },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 8.0),
-              child:
-                  Image.asset('images/icons/bottom_nagivator_bar/${iconName}'),
-            ),
-            Text(label,
-                style: index == _currentIndexTab ? textActivated : textInactive)
-          ],
+        child: Container(
+          width: (MediaQuery.of(context).size.width - 32.0) / 5.0,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+                child: Image.asset(
+                    'images/icons/bottom_nagivator_bar/${iconName}'),
+              ),
+              Text(label,
+                  style:
+                      index == _currentIndexTab ? textActivated : textInactive)
+            ],
+          ),
         ),
       );
     }
