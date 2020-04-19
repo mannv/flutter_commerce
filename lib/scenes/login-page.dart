@@ -9,15 +9,30 @@ class LoginPage extends StatelessWidget with FormStyle {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     _gotoForgotPassword() {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => ForgotPassword()));
     }
 
+    _showSnackBar() {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Đăng nhập thành công'),
+        backgroundColor: Theme.of(context).snackBarTheme.backgroundColor,
+        action: SnackBarAction(
+          onPressed: () => print('ok'),
+          label: 'Ok',
+          textColor: Colors.white,
+        ),
+      ));
+    }
+
     _loginAction() {
       if (_fbKey.currentState.saveAndValidate()) {
         print('Login: Validate thanh cong');
+        print(_fbKey.currentState.value);
+        _showSnackBar();
       } else {
         print('Login: Nhap lieu khong dung');
       }
@@ -100,6 +115,7 @@ class LoginPage extends StatelessWidget with FormStyle {
     }
 
     return Scaffold(
+      key: _scaffoldKey,
       resizeToAvoidBottomPadding: false,
       body: SafeArea(
         child: Container(

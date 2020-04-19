@@ -7,10 +7,25 @@ class ForgotPassword extends StatelessWidget with FormStyle {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    _showSnackBar() {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Mật khẩu mới đã được gửi vào email của bạn!'),
+        backgroundColor: Theme.of(context).snackBarTheme.backgroundColor,
+        action: SnackBarAction(
+          onPressed: () => print('ok'),
+          label: 'Ok',
+          textColor: Colors.white,
+        ),
+      ));
+    }
 
     _forgotPasswordAction() {
       if (_fbKey.currentState.saveAndValidate()) {
         print('_forgotPasswordAction: Validate thanh cong');
+        print(_fbKey.currentState.value);
+        _showSnackBar();
       } else {
         print('_forgotPasswordAction: Nhap lieu khong dung');
       }
@@ -72,6 +87,7 @@ class ForgotPassword extends StatelessWidget with FormStyle {
     }
 
     return Scaffold(
+      key: _scaffoldKey,
       resizeToAvoidBottomPadding: false,
       body: SafeArea(
         child: Container(

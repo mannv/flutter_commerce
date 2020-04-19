@@ -7,6 +7,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class RegisterPage extends StatelessWidget with FormStyle {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +16,23 @@ class RegisterPage extends StatelessWidget with FormStyle {
           context, MaterialPageRoute(builder: (context) => LoginPage()));
     }
 
+    _showSnackBar() {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Đăng ký thành công'),
+        backgroundColor: Theme.of(context).snackBarTheme.backgroundColor,
+        action: SnackBarAction(
+          onPressed: () => print('ok'),
+          label: 'Ok',
+          textColor: Colors.white,
+        ),
+      ));
+    }
+
     _registerAction() {
       if (_fbKey.currentState.saveAndValidate()) {
         print('Validate thanh cong');
         print(_fbKey.currentState.value);
+        _showSnackBar();
       } else {
         print('Nhap lieu khong dung');
       }
@@ -110,6 +124,7 @@ class RegisterPage extends StatelessWidget with FormStyle {
     }
 
     return Scaffold(
+      key: _scaffoldKey,
       resizeToAvoidBottomPadding: false,
       body: SafeArea(
         child: Container(
