@@ -10,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _slideIndex = 0;
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +73,12 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
+    void _onItemTapped(int index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+
     return Scaffold(
         body: Container(
             decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
@@ -83,6 +90,34 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[Text('vai hang')],
                 )
               ],
-            )));
+            )),
+        bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            type: BottomNavigationBarType.fixed,
+            onTap: _onItemTapped,
+            currentIndex: _selectedIndex,
+            selectedItemColor: Theme.of(context).primaryColor,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                title: Text('Home'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart),
+                title: Text('Shop'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_basket),
+                title: Text('Bag'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart),
+                title: Text('Favorites'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle),
+                title: Text('Profile'),
+              )
+            ]));
   }
 }
