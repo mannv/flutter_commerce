@@ -21,29 +21,29 @@ class LoginWithSocialNetwork extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(right: 8.0),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24.0)),
-                  height: 64.0,
-                  width: 92.0,
-                  child: GestureDetector(
-                    onTap: _loginGoogle,
+                GestureDetector(
+                  onTap: _loginGoogle,
+                  child: Container(
+                    margin: EdgeInsets.only(right: 8.0),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24.0)),
+                    height: 64.0,
+                    width: 92.0,
                     child: Center(
                       child: Image.asset('images/icons/google.png'),
                     ),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 8.0),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24.0)),
-                  height: 64.0,
-                  width: 92.0,
-                  child: GestureDetector(
-                    onTap: _loginFacebook,
+                GestureDetector(
+                  onTap: _loginFacebook,
+                  child: Container(
+                    margin: EdgeInsets.only(left: 8.0),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24.0)),
+                    height: 64.0,
+                    width: 92.0,
                     child: Center(
                       child: Image.asset('images/icons/facebook.png'),
                     ),

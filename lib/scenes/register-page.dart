@@ -18,6 +18,7 @@ class RegisterPage extends StatelessWidget with FormStyle {
     _registerAction() {
       if (_fbKey.currentState.saveAndValidate()) {
         print('Validate thanh cong');
+        print(_fbKey.currentState.value);
       } else {
         print('Nhap lieu khong dung');
       }
