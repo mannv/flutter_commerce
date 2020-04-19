@@ -93,6 +93,11 @@ class _TabHomeState extends State<TabHome> {
                 child: FeatureProduction(
                     title: 'New', description: 'You\'ve never seen it before!'),
               ),
+              Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: FeatureProduction(
+                    title: 'New', description: 'You\'ve never seen it before!'),
+              ),
             ],
           ),
         )

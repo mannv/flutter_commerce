@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_commerce/scenes/register-page.dart';
 import 'package:flutter_commerce/widgets/home_page/tab_bag.dart';
 import 'package:flutter_commerce/widgets/home_page/tab_favorites.dart';
 import 'package:flutter_commerce/widgets/home_page/tab_home.dart';
@@ -31,20 +32,33 @@ class _HomePageState extends State<HomePage> {
           ? '${icon}_activated.png'
           : '${icon}_inactive.png';
 
-      TextStyle textActivated = Theme.of(context)
+      TextStyle textActivated = Theme
+          .of(context)
           .textTheme
           .overline
           .copyWith(color: Color(0xFFDB3022));
-      TextStyle textInactive = Theme.of(context).textTheme.overline;
+      TextStyle textInactive = Theme
+          .of(context)
+          .textTheme
+          .overline;
 
       return GestureDetector(
         onTap: () {
-          setState(() {
-            _currentIndexTab = index;
-          });
+          if (index == 4) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegisterPage()));
+          } else {
+            setState(() {
+              _currentIndexTab = index;
+            });
+          }
         },
         child: Container(
-          width: (MediaQuery.of(context).size.width - 32.0) / 5.0,
+          width: (MediaQuery
+              .of(context)
+              .size
+              .width - 32.0) / 5.0,
           decoration: BoxDecoration(color: Colors.white),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,7 +70,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Text(label,
                   style:
-                      index == _currentIndexTab ? textActivated : textInactive)
+                  index == _currentIndexTab ? textActivated : textInactive)
             ],
           ),
         ),
