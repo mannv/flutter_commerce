@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_commerce/scenes/home-page.dart';
+import 'package:flutter_commerce/scenes/splash-screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
                   fontFamily: 'Comfortaa-SemiBold',
                   color: Colors.white))),
       home: HomePage(),
+//      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
