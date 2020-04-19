@@ -15,8 +15,27 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     List<String> listBanner = ['1.png', '2.png', '3.png', '4.jpg'];
     double bannerWidth = MediaQuery.of(context).size.width;
+
+    final _dotPaginate = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: listBanner.map((url) {
+        int index = listBanner.indexOf(url);
+        return Container(
+          width: 10.0,
+          height: 10.0,
+          margin: EdgeInsets.symmetric(horizontal: 3.0),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: index == _slideIndex
+                ? Theme.of(context).primaryColor
+                : Color.fromRGBO(0, 0, 0, 0.4),
+          ),
+        );
+      }).toList(),
+    );
+
     final _bannerSlide = Container(
-      child: Column(
+      child: Stack(
         children: <Widget>[
           CarouselSlider(
             options: CarouselOptions(
@@ -40,23 +59,15 @@ class _HomePageState extends State<HomePage> {
                 )
                 .toList(),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: listBanner.map((url) {
-              int index = listBanner.indexOf(url);
-              return Container(
-                width: 8.0,
-                height: 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: index == _slideIndex
-                      ? Color.fromRGBO(0, 0, 0, 0.9)
-                      : Color.fromRGBO(0, 0, 0, 0.4),
-                ),
-              );
-            }).toList(),
-          )
+          Positioned(
+            bottom: 10.0,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                child: _dotPaginate,
+              ),
+            ),
+          ),
         ],
       ),
     );
