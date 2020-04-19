@@ -1,5 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_commerce/widgets/home_page/tab_bag.dart';
+import 'package:flutter_commerce/widgets/home_page/tab_favorites.dart';
+import 'package:flutter_commerce/widgets/home_page/tab_home.dart';
+import 'package:flutter_commerce/widgets/home_page/tab_profile.dart';
+import 'package:flutter_commerce/widgets/home_page/tab_shop.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,115 +14,79 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _slideIndex = 0;
-  int _selectedIndex = 0;
+  int _currentIndexTab = 0;
+
+  List<Widget> _widgetOptions = <Widget>[
+    TabHome(),
+    TabShop(),
+    TabBag(),
+    TabFavorites(),
+    TabProfile()
+  ];
 
   @override
   Widget build(BuildContext context) {
-    List<String> listBanner = ['1.png', '2.png', '3.png', '4.jpg'];
-    double bannerWidth = MediaQuery.of(context).size.width;
+    Widget _footerNavigatorItem(int index, String label, String icon) {
+      String iconName = index == _currentIndexTab
+          ? '${icon}_activated.png'
+          : '${icon}_inactive.png';
+      print('iconName: ${iconName}');
 
-    final _dotPaginate = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: listBanner.map((url) {
-        int index = listBanner.indexOf(url);
-        return Container(
-          width: 10.0,
-          height: 10.0,
-          margin: EdgeInsets.symmetric(horizontal: 3.0),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: index == _slideIndex
-                ? Theme.of(context).primaryColor
-                : Color.fromRGBO(0, 0, 0, 0.4),
-          ),
-        );
-      }).toList(),
-    );
+      TextStyle textActivated =
+          TextStyle(fontSize: 12.0, color: Color(0xFFDB3022));
+      TextStyle textInactive =
+          TextStyle(fontSize: 12.0, color: Color(0xFF9B9B9B));
 
-    final _bannerSlide = Container(
-      child: Stack(
-        children: <Widget>[
-          CarouselSlider(
-            options: CarouselOptions(
-                height: 196.0,
-                viewportFraction: 1.0,
-                enlargeCenterPage: true,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _slideIndex = index;
-                  });
-                }),
-            items: listBanner
-                .map(
-                  (item) => Container(
-                      decoration: BoxDecoration(color: Colors.green),
-                      child: Image.asset(
-                        'images/banners/${item}',
-                        width: bannerWidth,
-                        fit: BoxFit.fitWidth,
-                      )),
-                )
-                .toList(),
-          ),
-          Positioned(
-            bottom: 10.0,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: _dotPaginate,
-              ),
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            _currentIndexTab = index;
+          });
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
+              child:
+                  Image.asset('images/icons/bottom_nagivator_bar/${iconName}'),
             ),
-          ),
-        ],
-      ),
-    );
-
-    void _onItemTapped(int index) {
-      setState(() {
-        _selectedIndex = index;
-      });
+            Text(label,
+                style: index == _currentIndexTab ? textActivated : textInactive)
+          ],
+        ),
+      );
     }
 
     return Scaffold(
-        body: Container(
-            decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                _bannerSlide,
-                Column(
-                  children: <Widget>[Text('vai hang')],
-                )
-              ],
-            )),
-        bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.white,
-            type: BottomNavigationBarType.fixed,
-            onTap: _onItemTapped,
-            currentIndex: _selectedIndex,
-            selectedItemColor: Theme.of(context).primaryColor,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text('Home'),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: _widgetOptions[_currentIndexTab],
+            ),
+            Container(
+              height: 83.0,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  _footerNavigatorItem(0, 'Home', 'home'),
+                  _footerNavigatorItem(1, 'Shop', 'shop'),
+                  _footerNavigatorItem(2, 'Bag', 'bag'),
+                  _footerNavigatorItem(3, 'Favorites', 'heart'),
+                  _footerNavigatorItem(4, 'Profile', 'profile'),
+                ],
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart),
-                title: Text('Shop'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_basket),
-                title: Text('Bag'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart),
-                title: Text('Favorites'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle),
-                title: Text('Profile'),
-              )
-            ]));
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
