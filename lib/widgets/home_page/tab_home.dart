@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_commerce/models/product_model.dart';
 
 class TabHome extends StatefulWidget {
   @override
@@ -34,7 +37,7 @@ class _TabHomeState extends State<TabHome> {
       }).toList(),
     );
 
-    final _bannerSlide = Container(
+    Widget _bannerSlide = Container(
       child: Stack(
         children: <Widget>[
           CarouselSlider(
@@ -70,75 +73,201 @@ class _TabHomeState extends State<TabHome> {
       ),
     );
 
+    return ListView(
+      padding: EdgeInsets.zero,
+      children: <Widget>[
+        _bannerSlide,
+        Container(
+          decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: FeatureProduction(
+                    title: 'Sale', description: 'Suprt summer sale'),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: FeatureProduction(
+                    title: 'New', description: 'You\'ve never seen it before!'),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class FeatureProduction extends StatefulWidget {
+  String title;
+  String description;
+
+  FeatureProduction({this.title, this.description}) : super();
+
+  @override
+  State createState() {
+    return _FeatureProduction();
+  }
+}
+
+class _FeatureProduction extends State<FeatureProduction> {
+  @override
+  Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            _bannerSlide,
-            Column(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                Text('vai hang'),
-                SizedBox(height: 40.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      widget.title,
+                      style: Theme.of(context).textTheme.headline,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        print('View all sale product');
+                      },
+                      child: Text('View all'),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 4.0),
+                  child: Text(
+                    widget.description,
+                    style: Theme.of(context).textTheme.overline,
+                  ),
+                )
               ],
-            )
-          ],
-        ));
-//    return Container(
-//      padding: EdgeInsets.only(top: 100.0),
-//      child: Text('Home Tab'),
-//    );
+            ),
+          ),
+          SizedBox(
+            height: 22.0,
+          ),
+          Container(
+            height: 260.0,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                Row(
+                  children: products.map((prod) {
+                    return _ProductionItem(product: prod);
+                  }).toList(),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _ProductionItem extends StatefulWidget {
+  Product product;
+
+  _ProductionItem({this.product}) : super();
+
+  @override
+  State createState() {
+    return _ProductionItemState();
+  }
+}
+
+class _ProductionItemState extends State<_ProductionItem> {
+  @override
+  Widget build(BuildContext context) {
+    Widget discountInfo = Positioned(
+      top: 8.0,
+      left: 8.0,
+      child: Text(''),
+    );
+
+    if (widget.product.discount > 0) {
+      discountInfo = Positioned(
+        top: 8.0,
+        left: 8.0,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          height: 24.0,
+          decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.circular(29.0)),
+          child: Center(
+            child: Text(
+              '- ${widget.product.discount}%',
+              style: Theme.of(context)
+                  .textTheme
+                  .overline
+                  .copyWith(color: Colors.white),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget saveToFavorite = Positioned(
+      bottom: 0.0,
+      right: 0.0,
+      child: GestureDetector(
+        onTap: () {
+          print('save to favorite');
+        },
+        child: Container(
+          width: 36.0,
+          height: 36.0,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(25.0)),
+          child: Icon(
+            Icons.favorite_border,
+            size: 20.0,
+            color: Color(0xFF9B9B9B),
+          ),
+        ),
+      ),
+    );
+
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16.0),
+      height: 260.0,
+      width: 150.0,
+      decoration: BoxDecoration(color: Colors.grey),
+      child: Column(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              Container(
+                height: 260,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      width: 150.0,
+                      height: 185.0,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                            'images/product/${widget.product.image}',
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                    Text(widget.product.title)
+                  ],
+                ),
+              ),
+              discountInfo,
+              saveToFavorite,
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

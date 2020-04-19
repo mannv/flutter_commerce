@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
           ),
           textTheme: TextTheme(
               headline: TextStyle(fontSize: 34.0, fontFamily: 'Comfortaa-Bold'),
+              overline: TextStyle(fontSize: 12.0, color: Color(0xFF9B9B9B)),
               button: TextStyle(
                   fontSize: 14.0,
                   fontFamily: 'Comfortaa-SemiBold',

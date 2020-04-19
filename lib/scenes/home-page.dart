@@ -31,10 +31,11 @@ class _HomePageState extends State<HomePage> {
           ? '${icon}_activated.png'
           : '${icon}_inactive.png';
 
-      TextStyle textActivated =
-          TextStyle(fontSize: 12.0, color: Color(0xFFDB3022));
-      TextStyle textInactive =
-          TextStyle(fontSize: 12.0, color: Color(0xFF9B9B9B));
+      TextStyle textActivated = Theme.of(context)
+          .textTheme
+          .overline
+          .copyWith(color: Color(0xFFDB3022));
+      TextStyle textInactive = Theme.of(context).textTheme.overline;
 
       return GestureDetector(
         onTap: () {
